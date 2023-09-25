@@ -9,7 +9,11 @@
             fetch('routes.json')
                 .then(response => response.json())
                 .then(routes => {
-                    var fragment = location.pathname.split('/').pop();
+                    var path = location.pathname;
+                    if(path.endsWith('/')) {
+                        path = path.slice(0, -1);
+                    }
+                    var fragment = path.split('/').pop();
                     var url = routes[fragment];
                     location.href = url ? url : './404_not_found.html';
                 });
