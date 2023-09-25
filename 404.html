@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <title>Short URL App</title>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
     <script type="text/javascript">
         (function () {
             fetch('routes.json')
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
                 .then(routes => {
                     var path = location.pathname;
-                    if(path.endsWith('/')) {
-                        path = path.slice(0, -1);
-                    }
+                    path = path.replace(/\/+$/, ''); // Remove trailing slashes
                     var fragment = path.split('/').pop();
                     var url = routes[fragment];
-                    location.href = url ? url : './404_not_found.html';
+                    if(url) {
+                        location.href = url;
+                    } else {
+                        location.href = './404_not_found.html';
+                    }
+                })
+                .catch(error => {
+                    location.href = './404_not_found.html';
                 });
         })();
     </script>
-    <style>
+<style>
         body,
         html {
             height: 100%;
