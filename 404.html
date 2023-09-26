@@ -5,7 +5,7 @@
     <title>Redirecting...</title>
     <script type="text/javascript">
         (function () {
-            fetch('routes.json')
+            fetch('/routes.json')
                 .then(response => {
                     if (!response.ok) {
                         throw Error(response.statusText);
@@ -20,13 +20,11 @@
                     if(url) {
                         location.href = url;
                     } else {
-                        window.location.replace(window.location.origin);
-                        location.href = './404_not_found.html';
+                        window.location.href = '/404_not_found.html';
                     }
                 })
                 .catch(error => {
-                    window.location.replace(window.location.origin);
-                    location.href = './404_not_found.html';
+                    window.location.href = '/404_not_found.html';
                 });
         })();
     </script>
