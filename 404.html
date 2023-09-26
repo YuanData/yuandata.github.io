@@ -20,10 +20,12 @@
                     if(url) {
                         location.href = url;
                     } else {
+                        window.location.replace(window.location.origin);
                         location.href = './404_not_found.html';
                     }
                 })
                 .catch(error => {
+                    window.location.replace(window.location.origin);
                     location.href = './404_not_found.html';
                 });
         })();
